@@ -1,0 +1,1 @@
+# MyProject Django 1_HW
