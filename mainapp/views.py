@@ -1,31 +1,21 @@
+from django.conf import settings
+from mainapp.models import Product, ProductCategory
 from django.shortcuts import render
 
 
 def index(request):
+    products_list = Product.objects.all()[:4]
+    print(products_list.query)
+
     context = {
-        'custom_users': [
-            {
-                'name': 'Oleg Maslov'
-            },
-            {
-                'name': 'Ivan Petrov'
-            }
-        ],
-        'title': 'мой магазин'
+        'title': 'мой магазин',
+        'products': products_list
     }
     return render(request, 'mainapp/index.html', context)
 
 
-links_menu = [
-    {'href': 'products', 'name': 'Все'},
-    {'href': 'products_home', 'name': 'Дом'},
-    {'href': 'products_modern', 'name': 'Модерн'},
-    {'href': 'products_office', 'name': 'Офис'},
-    {'href': 'products_classic', 'name': 'Классика'},
-]
-
-
-def products(request):
+def products(request, pk=None):
+    links_menu = ProductCategory.objects.all()
     context = {
         'links_menu': links_menu,
         'title': "Товары"
@@ -34,6 +24,7 @@ def products(request):
 
 
 def products_home(request):
+    links_menu = ProductCategory.objects.all()
     context = {
         'links_menu': links_menu,
         'title': "Товары"
@@ -42,6 +33,7 @@ def products_home(request):
 
 
 def products_modern(request):
+    links_menu = ProductCategory.objects.all()
     context = {
         'links_menu': links_menu,
         'title': "Товары"
@@ -50,6 +42,7 @@ def products_modern(request):
 
 
 def products_office(request):
+    links_menu = ProductCategory.objects.all()
     context = {
         'links_menu': links_menu,
         'title': "Товары"
@@ -58,6 +51,7 @@ def products_office(request):
 
 
 def products_classic(request):
+    links_menu = ProductCategory.objects.all()
     context = {
         'links_menu': links_menu,
         'title': "Товары"
@@ -66,6 +60,7 @@ def products_classic(request):
 
 
 def contact(request):
+    links_menu = ProductCategory.objects.all()
     context = {
         'links_menu': links_menu,
         'title': "Товары"
