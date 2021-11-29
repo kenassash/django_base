@@ -23,46 +23,10 @@ def products(request, pk=None):
     return render(request, 'mainapp/products.html', context)
 
 
-def products_home(request):
-    links_menu = ProductCategory.objects.all()
-    context = {
-        'links_menu': links_menu,
-        'title': "Товары"
-    }
-    return render(request, 'mainapp/products.html', context)
-
-
-def products_modern(request):
-    links_menu = ProductCategory.objects.all()
-    context = {
-        'links_menu': links_menu,
-        'title': "Товары"
-    }
-    return render(request, 'mainapp/products.html', context)
-
-
-def products_office(request):
-    links_menu = ProductCategory.objects.all()
-    context = {
-        'links_menu': links_menu,
-        'title': "Товары"
-    }
-    return render(request, 'mainapp/products.html', context)
-
-
-def products_classic(request):
-    links_menu = ProductCategory.objects.all()
-    context = {
-        'links_menu': links_menu,
-        'title': "Товары"
-    }
-    return render(request, 'mainapp/products.html', context)
-
-
 def contact(request):
     links_menu = ProductCategory.objects.all()
     context = {
         'links_menu': links_menu,
         'title': "Товары"
     }
-    return render(request, 'mainapp/products.html', context)
+    return render(request, 'mainapp/contact.html', context)
