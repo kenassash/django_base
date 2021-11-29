@@ -1,0 +1,38 @@
+[
+  {
+    "category": "дом",
+    "name": "комфорт 1",
+    "image": "products_image/product-1.jpg",
+    "short_desc": "комфортный стул",
+    "description": "отличная мебель для домашнего интерьера",
+    "price": "123.5",
+    "quantity": "21"
+  },
+  {
+    "category": "дом",
+    "name": "комфорт 2",
+    "image": "products_image/product-2.jpg",
+    "short_desc": "комфортный стул",
+    "description": "отличная мебель для домашнего интерьера",
+    "price": "2989.5",
+    "quantity": "17"
+  },
+  {
+    "category": "дом",
+    "name": "люкс",
+    "image": "products_image/product-3.jpg",
+    "short_desc": "очень комфортный стул",
+    "description": "отличная мебель для домашнего интерьера",
+    "price": "2989.5",
+    "quantity": "21"
+  },
+  {
+    "category": "дом",
+    "name": "стандрт",
+    "image": "products_image/product-4.jpg",
+    "short_desc": "комфортный стул",
+    "description": "отличная мебель для домашнего интерьера",
+    "price": "29289.5",
+    "quantity": "17"
+  }
+]

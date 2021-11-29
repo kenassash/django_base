@@ -1,1 +1,1 @@
-# MyProject Django 1_HW
+# MyProject Django 1
