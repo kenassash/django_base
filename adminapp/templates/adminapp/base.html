@@ -15,18 +15,29 @@
     {% endblock %}
     {% block js %}
         <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-        <script src="{% static 'js/basket_scripts.js' %}"></script>
     {% endblock %}
 </head>
 <body>
-<div class="basket_container">
-        <div class="h2 text-center head">
-            Ваша корзина, {% if user.first_name %}{{ user.first_name }}{% else %}Пользователь{% endif %}
-        </div>
+<div class="admin_container">
+    <div class="h2 text-center head">
+        Админка
+    </div>
+    <div class="admin_menu">
+        <ul class="menu">
+            <li>
+                <a href="{% url 'index' %}"> На сайт</a>
+            </li>
+            <li>
+                <a href="{% url 'adminapp:users' %}">Пользователи</a>
+            </li>
+            <li>
+                <a href="{% url 'adminapp:categories' %}">Категории</a>
+            </li>
+        </ul>
+    </div>
+    {% block content %}
 
-        {% block content %}
-
-        {% endblock %}
+    {% endblock %}
     </div>
 </div>
 </body>
