@@ -7,5 +7,5 @@
         <input type="submit" class="btn btn-primary" value="Сохранить">
 
     </form>
-    <a href="{% url 'adminapp:categories'  %}">К списку категорий</a>
+    <a href="{% url 'adminapp:products' category.pk %}">К списку товаров</a>
 {% endblock %}
