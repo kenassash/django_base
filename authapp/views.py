@@ -1,10 +1,13 @@
 from django.contrib import auth
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.conf import settings
 
 # Create your views here.
-from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm
+from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm, ShopUserProfileForm
+from authapp.models import ShopUser
 
 
 def login(request):
@@ -36,13 +39,17 @@ def logout(request):
 def edit(request):
     if request.method == 'POST':
         edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
-        if edit_form.is_valid():
+        edit_profile_form = ShopUserProfileForm(request.POST,instance=request.user.shopuserprofile )
+        if edit_form.is_valid() and edit_profile_form.is_valid():
             edit_form.save()
             return HttpResponseRedirect(reverse('authapp:edit'))
     else:
         edit_form = ShopUserEditForm(instance=request.user)
+        edit_profile_form = ShopUserProfileForm(instance=request.user.shopuserprofile )
+
     context = {
-        'edit_form': edit_form
+        'edit_form': edit_form,
+        'edit_profile_form': edit_profile_form
     }
     return render(request, 'authapp/edit.html', context)
 
@@ -51,7 +58,8 @@ def register(request):
     if request.method == 'POST':
         register_form = ShopUserRegisterForm(request.POST, request.FILES)
         if register_form.is_valid():
-            register_form.save()
+            user = register_form.save()
+            send_verify_mail(user)
             return HttpResponseRedirect(reverse('authapp:login'))
     else:
         register_form = ShopUserRegisterForm()
@@ -59,3 +67,24 @@ def register(request):
         'register_form': register_form
     }
     return render(request, 'authapp/register.html', context)
+
+
+def verify(requset, email, activation_key):
+    user = ShopUser.objects.filter(email=email).first()
+    if user:
+        if user.activation_key == activation_key and not user.is_activation_key_expired():
+            user.is_active = True
+            user.activation_key = None
+            user.activation_key_expired = None
+            user.save()
+            auth.login(requset, user)
+        return render(requset, 'authapp/verify.html')
+
+
+def send_verify_mail(user):
+    verify_link = reverse('authapp:verify', args=[user.email, user.activation_key])
+    subject = 'Account verify'
+
+    message = f'{settings.BASE_URL}{verify_link}'
+
+    return send_mail(subject, message, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
