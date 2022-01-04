@@ -6,7 +6,8 @@ from django.conf import settings
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
-NULLABLE = {'blank':True, 'null': True}
+NULLABLE = {'blank': True, 'null': True}
+
 
 class ShopUser(AbstractUser):
     avatar = models.ImageField(upload_to='users', blank=True)
@@ -19,6 +20,7 @@ class ShopUser(AbstractUser):
         if datetime.now(pytz.timezone(settings.TIME_ZONE)) <= self.activation_key_expired + timedelta(hours=48):
             return False
         return True
+
 
 class ShopUserProfile(models.Model):
     MALE = 'M'
@@ -46,5 +48,3 @@ class ShopUserProfile(models.Model):
     @receiver(post_save, sender=ShopUser)
     def save_user_profile(sender, instance, **kwargs):
         instance.shopuserprofile.save()
-
-
