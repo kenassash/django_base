@@ -18,7 +18,6 @@ class ProductCategory(models.Model):
         self.save()
 
 
-
 class Product(models.Model):
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     name = models.CharField(max_length=128, verbose_name='Название')
@@ -28,7 +27,6 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Цена', default=0)
     quantity = models.PositiveSmallIntegerField(default=0, verbose_name='Колличество')
     is_active = models.BooleanField(default=True)
-
 
     def __str__(self):
         return f'{self.name} {self.category}'
