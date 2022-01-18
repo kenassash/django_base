@@ -12,6 +12,7 @@
       "change_message": "[{\"changed\": {\"fields\": [\"Category\"]}}]"
     }
   },
+
   {
     "model": "admin.logentry",
     "pk": 2,
