@@ -9,8 +9,7 @@ from adminapp.forms import ShopUserAdminEditForm, ProductCategoryForm, ProductFo
 from authapp.forms import ShopUserRegisterForm
 from authapp.models import ShopUser
 from mainapp.models import ProductCategory, Product
-
-
+from django.db.models import F
 # @user_passes_test(lambda u: u.is_superuser)
 # def users(request):
 #     context = {
@@ -127,6 +126,13 @@ class ProductCategoryUpdateView(UpdateView):
     # fields = '__all__'
     form_class = ProductCategoryForm
     success_url = reverse_lazy('adminapp:categories')
+
+    def form_valid(self, form):
+        if 'discount' in form.cleaned_data:
+            discount = form.cleaned_data['discount']
+            if discount:
+                self.object.product_set.update(price=F('price') * (1 - discount/100))
+        return super().form_valid(form)
 
 
 # @user_passes_test(lambda u: u.is_superuser)
